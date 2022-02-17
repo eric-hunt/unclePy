@@ -589,15 +589,11 @@ class HDF5:
                 "UPDATE uncle_experiment_sets SET "
                 "name = '{}', "
                 "product_id = '{}', "
-                "uncle_plate_type_id = '{}', "
-                "plate_generation = '{}', "
                 "created_at = '{}', "
                 "updated_at = '{}' "
                 "WHERE id = {};".format(
                     update_params['name'],
                     update_params['product_id'],
-                    update_params['uncle_plate_type_id'],
-                    update_params['plate_generation'],
                     update_params['created_at'],
                     update_params['updated_at'],
                     self.exp_set_id)
