@@ -576,8 +576,6 @@ class HDF5:
         exp_set_info = {
             'name': [self.exp_name()],
             'product_id': product_id,
-            'uncle_plate_type_id': [self.exp_plate_type(return_id = True)],
-            'plate_generation': [self.exp_generation()]
         }
         df = pd.DataFrame(exp_set_info)
         if datetime_needed:
@@ -589,15 +587,11 @@ class HDF5:
                 "UPDATE uncle_experiment_sets SET "
                 "name = '{}', "
                 "product_id = '{}', "
-                "uncle_plate_type_id = '{}', "
-                "plate_generation = '{}', "
                 "created_at = '{}', "
                 "updated_at = '{}' "
                 "WHERE id = {};".format(
                     update_params['name'],
                     update_params['product_id'],
-                    update_params['uncle_plate_type_id'],
-                    update_params['plate_generation'],
                     update_params['created_at'],
                     update_params['updated_at'],
                     self.exp_set_id)
