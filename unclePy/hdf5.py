@@ -280,8 +280,16 @@ class HDF5:
         str
             Plate side used in experiment
         """
-        plate_info = self.exp_file_name().split('-')[-1]
-        plate_side = re.search(r'\D+$', plate_info).group()
+        with self.engine.connect() as con:
+            query = sqlalchemy.text(
+                "SELECT plate_side "
+                "FROM uncle_experiments ue "
+                "WHERE ue.id = {}".format(
+                    self.uncle_experiment_id
+                ))
+            plate_side = con.execute(query)
+            plate_side = plate_side.mappings().all()[0]['plate_side']
+
         assert plate_side.lower() in ['l', 'r'],\
             'Incorrect plate side. Plate side should be one of: L, R'
         return plate_side
